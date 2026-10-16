@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AX란 무엇인가: 정의와 웹 개발 경험</title>
+<style>
+:root{--bg:#f6f7f4;--ink:#1d2421;--mute:#5b6660;--line:#d5dbd5;--accent:#2f6b57;--tint:#e6eee9;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151a18;--ink:#e8ede9;--mute:#9aa6a0;--line:#2c3631;--accent:#7cc4a6;--tint:#1e2824}}
+:root[data-theme="dark"]{--bg:#151a18;--ink:#e8ede9;--mute:#9aa6a0;--line:#2c3631;--accent:#7cc4a6;--tint:#1e2824}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Serif KR","Apple SD Gothic Neo","Malgun Gothic",serif;line-height:1.85;font-size:17px}
+main{max-width:700px;margin:0 auto;padding:56px 22px 80px}
+h1{font-size:2rem;line-height:1.3;margin:0 0 14px;letter-spacing:-.02em}
+h2{font-size:1.3rem;margin:48px 0 14px;padding-top:20px;border-top:1px solid var(--line)}
+h3{font-size:1.02rem;margin:24px 0 6px;color:var(--accent)}
+p{margin:0 0 12px}
+.meta{color:var(--mute);font-size:.88rem;margin-bottom:22px}
+blockquote{margin:0 0 8px;padding:14px 18px;background:var(--tint);border-left:3px solid var(--accent)}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{color:var(--accent)}
+tbody th{width:20%;color:var(--mute)}
+ul,ol{padding-left:22px;margin:0 0 12px}
+li{margin-bottom:6px}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:var(--tint);padding:1px 6px;border-radius:4px}
+.note{color:var(--mute);font-size:.92rem}
+.summary{margin-top:48px;padding:22px;border:1px solid var(--accent);font-weight:700}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>AX란 무엇인가: 정의와 웹 개발 경험</h1>
+<p class="meta">2026-10-02 · 개인 학습 기록</p>
+<blockquote>AX의 정의를 먼저 정리하고, 요즘 실제로 어떻게 쓰이는지 살핀 뒤, 내가 웹 개발 작업에서 겪은 일과 연결한 기록.</blockquote>
+
+<h2>AX의 정의</h2>
+<p>AX는 AI Transformation, 즉 AI 전환의 줄임말이다. AI를 업무 절차, 의사결정, 사업 방식에 구조적으로 결합해 조직이 일하는 방식 자체를 다시 설계하는 변화를 말한다. 단순히 도구를 들여오는 것(도입)이나 일부를 고치는 것(개선)이 아니라, 일의 형태가 달라지는 것이 핵심이다.</p>
+<p>한 가지 주의할 점이 있다. 정의가 아직 하나로 굳어지지 않아서, 사내 챗봇을 만든 것을 AX라고 부르는 곳도 있고 의사결정 절차를 다시 짜는 것만 AX라고 보는 곳도 있다. 이 글은 "AI를 쓰는 것"이 아니라 "AI를 기준으로 일하는 방식이 바뀌는 것"을 AX로 본다.</p>
+
+<h2>DX와 비교하면</h2>
+<div class="wrap"><table>
+<thead><tr><th></th><th>DX (디지털 전환)</th><th>AX (AI 전환)</th></tr></thead>
+<tbody>
+<tr><th>바꾸는 것</th><td>종이·수작업을 디지털 프로세스로 옮기는 수단의 전환</td><td>디지털 위에서 판단의 주체와 방식을 바꾸는 판단의 전환</td></tr>
+<tr><th>핵심 기술</th><td>클라우드, ERP, 모바일</td><td>LLM, RAG, AI 에이전트</td></tr>
+<tr><th>사람의 역할</th><td>사람이 시스템을 조작하고 명령</td><td>AI가 분석·제안하고 사람은 검수와 예외 처리</td></tr>
+<tr><th>성과 지표</th><td>처리 시간 단축, 수작업 감소</td><td>판단 정확도, 자동 처리율, 사람 개입률</td></tr>
+</tbody></table></div>
+<p style="margin-top:12px">DX가 쌓아 둔 데이터와 디지털 업무 흐름이 AX의 재료가 된다. 그래서 AX는 DX를 대체하는 것이 아니라 그 위에 올라가는 다음 층으로 설명되는 경우가 많다.</p>
+
+<h2>요즘 어떻게 쓰이나</h2>
+<h3>기업과 산업</h3>
+<ul>
+<li>고객 문의의 1차 분류, 계약서 위험 조항 선별, 장애 원인 추정처럼 판단이 필요한 업무를 AI가 맡고 사람은 검수에 집중한다.</li>
+<li>한국에서는 "산업 AX", "AX 확산" 같은 표현이 정부 정책 문서와 기사에서 흔히 쓰인다. 정부는 AI 소프트웨어로 업무 혁신을 이끄는 기업을 "AX 기업"으로 부르기도 한다.</li>
+<li>챗봇이나 AI 상담사를 붙이는 것만으로는 AX라고 보기 어렵다는 지적이 있다. 판단과 대응 기준 자체가 바뀌어야 한다는 뜻이다.</li>
+</ul>
+<h3>웹 개발 현장</h3>
+<ul>
+<li><strong>바이브 코딩:</strong> 만들고 싶은 기능과 분위기를 자연어로 설명하면 AI가 HTML, CSS, JavaScript를 써 주고, 미리보기를 보며 말로 고쳐 나간다. 비전문가도 웹사이트를 만들 수 있게 된 점이 가장 큰 변화로 꼽힌다.</li>
+<li><strong>에이전틱 엔지니어링으로의 이동:</strong> 2026년 들어 AI 개발은 단순 코드 생성을 넘어, 코딩 에이전트가 파일을 읽고 고치는 방식으로 넓어졌다. 초점은 "재미있는 실험"에서 "믿을 수 있는 개발 절차"로 옮겨 가고 있다.</li>
+<li><strong>한계도 함께 언급된다:</strong> 복잡한 기능에서 오류가 잦거나 한 곳을 고치면 다른 곳이 깨지기도 한다. 그래서 AI가 만든 결과를 점검하고 정리하는 일(검수)이 중요해졌다.</li>
+</ul>
+
+<h2>내 경험과 연결하기</h2>
+<p class="note">아래는 옵시디언 노트에서 정리한 내용이다. 작은 경험이지만 위 개념과 이어서 보면 의미가 분명해진다.</p>
+<div class="wrap"><table>
+<tbody>
+<tr><th>출발점</th><td>Java로 웹 개발을 수동적으로 진행했다. Java의 전반적인 구조와 개념은 이해했다.</td></tr>
+<tr><th>막혔던 점</th><td>지금 시대에 맞는 바이브 코딩 경험이 부족해서 AI와 함께 개발하는 방식에 많이 헤맸다.</td></tr>
+<tr><th>극복 방법</th><td>학교 부트캠프의 프롬프트 엔지니어링 과정을 통해 AI에게 요청하는 방법을 배우며 극복했다.</td></tr>
+<tr><th>한 일</th><td>ChatGPT에 폴더를 연결해 마크다운 문서와 HTML 웹 파일을 저장했다. 크레딧이 떨어져 Claude로 옮겨 이어 가는 방법을 알아봤다.</td></tr>
+<tr><th>도구</th><td>ChatGPT, Claude, 옵시디언</td></tr>
+<tr><th>알게 된 것</th><td>마크다운과 HTML은 일반 텍스트라 AI 도구를 바꿔도 그대로 호환된다. 폴더 직접 연결은 웹 채팅이 아니라 데스크톱 앱에서 가능하다.</td></tr>
+</tbody></table></div>
+<h3>AX 관점에서 다시 보면</h3>
+<ul>
+<li>Java로 직접 코드를 짜던 방식에서 AI와 대화하며 만드는 방식으로 넘어가는 과정이 개인 단위의 작은 전환이었다. 기본기(Java 이해)가 있었기에 AI가 만든 결과를 읽고 판단할 수 있다는 점이 강점이다.</li>
+<li>헤맸던 원인은 지식이 아니라 AI에게 일을 맡기는 방법의 경험 부족이었고, 프롬프트 엔지니어링 수업이 그 부분을 채워 줬다. 도구 사용법보다 요청하는 방법이 먼저라는 걸 배웠다.</li>
+<li>문서와 웹 파일을 AI와 함께 만들고 고치는 방식은 바이브 코딩의 작은 사례다.</li>
+<li>도구가 바뀌어도 작업이 끊기지 않게 파일 형식을 열어 둔 것은, 특정 AI에 묶이지 않는 작업 환경을 만든 셈이다.</li>
+<li>AI가 만든 결과를 내가 읽고 확인한 뒤 직접 저장한 점은, 사람이 검수를 맡는 AX의 역할 분담과 닮았다.</li>
+</ul>
+
+<h2>다음에 해 볼 것</h2>
+<ul>
+<li>Claude 데스크톱 앱에서 옵시디언 보관함 폴더를 작업 폴더로 지정해 보기</li>
+<li>HTML 웹 폴더를 코딩 에이전트로 열어 수정해 보기</li>
+<li>AI가 만든 결과에서 내가 검수한 부분을 기록해 두기</li>
+</ul>
+
+<h2>참고한 자료</h2>
+<ul class="note">
+<li><a href="https://flex.team/blog/2025/10/27/ax">flex, AX (AI Transformation) 뜻과 핵심요소</a></li>
+<li><a href="https://www.msap.ai/ax/what-is-ax/">AX(AI 전환)란 무엇인가</a></li>
+<li><a href="https://www.msap.ai/ax/ax-vs-dx/">AX vs DX</a></li>
+<li><a href="https://blog.voc-studio.com/ax-ai-transformation-cx-terms">VOC STUDIO, AX란?</a></li>
+<li><a href="https://wikidocs.net/blog/@edwin/21757/">바이브 코딩에서 에이전틱 엔지니어링으로</a></li>
+</ul>
+
+<div class="summary">AX는 AI를 쓰는 데서 그치지 않고 판단과 일하는 방식을 AI 기준으로 바꾸는 전환이며, 웹 개발에서는 바이브 코딩과 코딩 에이전트로 나타나고 사람은 검수를 맡는다. 나는 Java 기본기 위에 프롬프트 엔지니어링을 배우며 이 전환을 따라가는 중이다.</div>
+</main>
+</body>
+</html>

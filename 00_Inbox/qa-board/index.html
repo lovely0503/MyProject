@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}</style>
+<title>QA 공고 보드</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* Layout: test-run report — a summary strip, filter bar, then a list of postings sorted by deadline like a test queue */
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --fg: #17202a;
+  --muted: #5b6876;
+  --line: #dde3e9;
+  --accent: #1f5f8b;
+  --accent-soft: #e3eef6;
+  --pass: #1d7a4c;
+  --pass-soft: #e2f3ea;
+  --warn: #a35a00;
+  --warn-soft: #fbeedb;
+  --font-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171c; --surface: #1a2128; --fg: #e6ebf0; --muted: #98a5b2; --line: #2b343d;
+    --accent: #7db8e0; --accent-soft: #1d3142; --pass: #6fd3a0; --pass-soft: #173327;
+    --warn: #f0b35e; --warn-soft: #3a2a14; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12171c; --surface: #1a2128; --fg: #e6ebf0; --muted: #98a5b2; --line: #2b343d;
+  --accent: #7db8e0; --accent-soft: #1d3142; --pass: #6fd3a0; --pass-soft: #173327;
+  --warn: #f0b35e; --warn-soft: #3a2a14; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 880px; margin: 0 auto; padding-block: 28px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 20px; }
+header { display: grid; gap: 6px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+h1 { margin: 0; font-size: 28px; font-weight: 700; text-wrap: balance; }
+.sub { margin: 0; color: var(--muted); max-width: 62ch; }
+.summary { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; color: var(--muted); }
+.summary b { color: var(--fg); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-block: 12px; border-block: 1px solid var(--line); }
+.filters span { font-size: 13px; color: var(--muted); margin-right: 4px; }
+.group { display: flex; flex-wrap: wrap; gap: 6px; margin-right: 12px; }
+button.chip { font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--fg); cursor: pointer; }
+button.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+button.chip:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+ol.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.job { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px;
+  display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 4px 16px; }
+.dday { grid-row: span 3; align-self: start; text-align: center; padding: 8px 4px; border-radius: 8px; background: var(--accent-soft);
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.dday strong { display: block; font-size: 18px; color: var(--accent); }
+.dday small { font-size: 11px; color: var(--muted); }
+.dday.soon { background: var(--warn-soft); }
+.dday.soon strong { color: var(--warn); }
+.dday.open strong { font-size: 13px; padding-block: 4px; color: var(--muted); }
+.top { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; font-size: 13px; color: var(--muted); }
+.company { font-weight: 700; color: var(--fg); font-size: 14px; }
+.title { font-size: 16px; font-weight: 500; }
+.title a { color: var(--fg); text-decoration-color: var(--line); text-underline-offset: 3px; }
+.title a:hover { color: var(--accent); text-decoration-color: currentColor; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--muted); }
+.tag { font-size: 12px; padding: 1px 8px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); }
+.tag.new { background: var(--pass-soft); color: var(--pass); font-weight: 700; }
+.note { grid-column: 2; font-size: 13px; color: var(--muted); margin: 2px 0 0; }
+.empty { color: var(--muted); padding: 24px 0; text-align: center; }
+footer { font-size: 13px; color: var(--muted); display: grid; gap: 4px; border-top: 1px solid var(--line); padding-top: 14px; }
+@media (max-width: 520px) {
+  .job { grid-template-columns: minmax(0, 1fr); }
+  .dday { grid-row: auto; justify-self: start; display: flex; gap: 8px; align-items: baseline; padding: 4px 10px; }
+  .dday strong { font-size: 15px; }
+  .dday.open strong { padding: 0; }
+  .note { grid-column: 1; }
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">2026-10-16 확인 · 게임잡 + 잡코리아</div>
+    <h1>QA 공고 보드</h1>
+    <p class="sub">게임잡 QA 공고와 잡코리아 QA엔지니어 공고를 마감이 빠른 순서로 모았어요. 제목을 누르면 원문 공고가 열려요.</p>
+    <div class="summary" id="summary"></div>
+  </header>
+
+  <div class="filters" role="group" aria-label="공고 거르기">
+    <div class="group"><span>경력</span>
+      <button class="chip" id="f-exp-all" data-k="exp" data-v="all" aria-pressed="true">전체</button>
+      <button class="chip" id="f-exp-new" data-k="exp" data-v="new" aria-pressed="false">신입 가능</button>
+      <button class="chip" id="f-exp-career" data-k="exp" data-v="career" aria-pressed="false">경력 필요</button>
+    </div>
+    <div class="group"><span>출처</span>
+      <button class="chip" id="f-src-all" data-k="src" data-v="all" aria-pressed="true">전체</button>
+      <button class="chip" id="f-src-gj" data-k="src" data-v="게임잡" aria-pressed="false">게임잡</button>
+      <button class="chip" id="f-src-jk" data-k="src" data-v="잡코리아" aria-pressed="false">잡코리아</button>
+    </div>
+  </div>
+
+  <ol class="list" id="list"></ol>
+
+  <footer>
+    <div>공고 원문에 담당업무와 자격조건이 비어 있는 경우가 많아요. 지원하기 전에 회사 채용 페이지에서 꼭 확인하세요.</div>
+    <div>잡코리아는 검색 결과 첫 페이지(25개)만, 게임잡은 메인과 목록 첫 페이지만 살펴봤어요. 빠진 공고가 있을 수 있어요.</div>
+  </footer>
+</div>
+
+<script>
+const JOBS = [
+  { src:"게임잡", co:"스마일게이트", title:"[AI센터] AI QA 자동화 기술 R&D 담당", url:"https://www.gamejob.co.kr/Recruit/GI_Read/View?GI_No=285958", exp:"무관", newOk:true, type:"인턴 6개월", loc:"경기 성남시 분당구", pay:"회사 내규", due:null, dueText:"채용 시 마감", posted:"2026-10-16", note:"게임 QA를 AI로 자동화하는 연구 업무예요. 로스트아크 개발사예요." },
+  { src:"게임잡", co:"펄어비스", title:"하우징 콘텐츠 QA 아르바이트", url:"https://www.gamejob.co.kr/Recruit/GI_Read/View?GI_No=285376", exp:"무관", newOk:true, type:"아르바이트(상근)", loc:"경기 과천시", pay:"월 220만 원", due:null, dueText:"채용 시 마감", posted:"2026-09-29", note:"검은사막·붉은사막 개발사예요. 통근버스, 중식·석식을 제공해요." },
+  { src:"게임잡", co:"바운더리", title:"[TARAE] 핵앤슬래시 게임 빌드 플레이 리뷰어", url:"https://www.gamejob.co.kr/Recruit/GI_Read/View?GI_No=284756", exp:"무관", newOk:true, type:"계약직 6개월", loc:"서울 서초·강남구", pay:"면접 후 협의", due:null, dueText:"채용 시 마감", posted:"2026-09-09", note:"PC/콘솔 게임 빌드를 플레이하고 리뷰하는 일이에요. 게임잡 이력서로 지원해요." },
+  { src:"잡코리아", co:"우아한형제들", title:"QA Engineer(Test)", url:"https://www.jobkorea.co.kr/Recruit/GI_Read/49928240", exp:"신입·경력 1년↑", newOk:true, type:"계약직 12개월", loc:"서울 송파구", pay:"회사 내규", due:null, dueText:"상시채용", posted:"2026-09-04", note:"배달의민족 운영사예요. 09:00~17:00 근무에 탄력근무제를 운영해요." },
+  { src:"잡코리아", co:"마카롱팩토리", title:"[마이클] QA엔지니어 (전환형 인턴)", url:"https://www.jobkorea.co.kr/Recruit/GI_Read/50142112", exp:"신입", newOk:true, type:"인턴 3개월 → 정규직 전환", loc:"경기 성남시 분당구", pay:"회사 내규", due:"2026-12-10", posted:"2026-10-12", note:"1명 모집이에요. 학력 무관, 10:00~19:00 근무예요." },
+  { src:"잡코리아", co:"아비콘코리아", title:"CCTV / IP 영상 보안 시스템 QA & 기술 지원", url:"https://www.jobkorea.co.kr/Recruit/GI_Read/50165849", exp:"신입·경력 1년↑", newOk:true, type:"정규직", loc:"경기 용인시 수지구", pay:"면접 후 결정", due:"2026-12-13", posted:"2026-10-14", note:"네트워크 기초 지식과 CCTV·VMS 이해가 필요해요. 기술 지원 업무가 섞여 있어요." },
+  { src:"잡코리아", co:"미리디", title:"[미리캔버스] QA 엔지니어", url:"https://www.jobkorea.co.kr/Recruit/GI_Read/49865087", exp:"경력 1년↑", newOk:false, type:"계약직 1년", loc:"서울 구로구", pay:"연봉 3,600~4,000만 원", due:"2026-10-26", posted:"2026-08-27" },
+  { src:"잡코리아", co:"마크애니", title:"[경력] 보안 솔루션 QA 엔지니어", url:"https://www.jobkorea.co.kr/Recruit/GI_Read/50123621", exp:"경력 3년↑", newOk:false, type:"정규직", loc:"서울 중구", pay:"회사 내규", due:"2026-11-06", posted:"2026-10-07" },
+  { src:"잡코리아", co:"마크애니", title:"[경력] QA 엔지니어 채용", url:"https://www.jobkorea.co.kr/Recruit/GI_Read/50173759", exp:"경력 2년↑", newOk:false, type:"정규직", loc:"서울 중구", pay:"회사 내규", due:"2026-11-14", posted:"2026-10-15" },
+  { src:"잡코리아", co:"넥스트증권", title:"QA Engineer", url:"https://www.jobkorea.co.kr/Recruit/GI_Read/50032490", exp:"경력", newOk:false, type:"정규직", loc:"서울 영등포구", pay:"회사 내규", due:"2026-11-20", posted:"2026-09-21" },
+  { src:"잡코리아", co:"팬딩", title:"QA 엔지니어", url:"https://www.jobkorea.co.kr/Recruit/GI_Read/50042430", exp:"경력 3년↑", newOk:false, type:"정규직", loc:"서울 강남구", pay:"회사 내규", due:"2026-11-21", posted:"2026-09-22" },
+  { src:"잡코리아", co:"티맵모빌리티", title:"QA Automation Engineer", url:"https://www.jobkorea.co.kr/Recruit/GI_Read/50073105", exp:"경력 5년↑", newOk:false, type:"정규직", loc:"서울 중구", pay:"회사 내규", due:"2026-11-28", posted:"2026-09-29" },
+  { src:"잡코리아", co:"플래티어", title:"[AI CX사업부문] QA 엔지니어", url:"https://www.jobkorea.co.kr/Recruit/GI_Read/50173044", exp:"경력 3년↑", newOk:false, type:"확인 필요", loc:"서울 송파구", pay:"업계 평균 이상", due:null, dueText:"마감일 확인 필요", posted:null },
+  { src:"잡코리아", co:"리빌더에이아이", title:"[리빌더AI] QA엔지니어", url:"https://www.jobkorea.co.kr/Recruit/GI_Read/50097794", exp:"경력 5년↑", newOk:false, type:"확인 필요", loc:"경기 성남시 분당구", pay:"확인 필요", due:null, dueText:"마감일 확인 필요", posted:null },
+];
+
+const DAY = 86400000;
+const today = (() => { const d = new Date(); return Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()); })();
+const toUTC = s => { const [y,m,d] = s.split("-").map(Number); return Date.UTC(y, m-1, d); };
+const daysLeft = j => j.due ? Math.round((toUTC(j.due) - today) / DAY) : null;
+const fmt = s => { const [, m, d] = s.split("-"); return `${+m}/${+d}`; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+
+const state = { exp: "all", src: "all" };
+try { const saved = JSON.parse(localStorage.getItem("qa-board-filter")); if (saved) Object.assign(state, saved); } catch (e) {}
+
+function sorted() {
+  return JOBS.map(j => ({ ...j, left: daysLeft(j) }))
+    .filter(j => j.left === null || j.left >= 0)
+    .sort((a, b) => (a.left ?? 9999) - (b.left ?? 9999) || (b.posted || "").localeCompare(a.posted || ""));
+}
+
+function render() {
+  document.querySelectorAll("button.chip").forEach(b => b.setAttribute("aria-pressed", String(state[b.dataset.k] === b.dataset.v)));
+  const all = sorted();
+  const rows = all.filter(j =>
+    (state.exp === "all" || (state.exp === "new") === j.newOk) &&
+    (state.src === "all" || state.src === j.src));
+
+  const soon = all.filter(j => j.left !== null && j.left <= 14).length;
+  document.getElementById("summary").innerHTML =
+    `<span>전체 <b>${all.length}</b>개</span><span>신입 가능 <b>${all.filter(j => j.newOk).length}</b>개</span><span>2주 안에 마감 <b>${soon}</b>개</span>`;
+
+  const list = document.getElementById("list");
+  if (!rows.length) { list.innerHTML = `<li class="empty">조건에 맞는 공고가 없어요. 필터를 바꿔 보세요.</li>`; return; }
+  list.innerHTML = rows.map(j => {
+    const isNew = j.posted && (today - toUTC(j.posted)) / DAY <= 3;
+    const dd = j.left === null
+      ? `<div class="dday open"><strong>${esc(j.dueText.replace(" 마감", "").replace("마감일 ", ""))}</strong></div>`
+      : `<div class="dday${j.left <= 14 ? " soon" : ""}"><strong>${j.left === 0 ? "D-day" : "D-" + j.left}</strong><small>${fmt(j.due)} 마감</small></div>`;
+    return `<li class="job">
+      ${dd}
+      <div class="top"><span class="company">${esc(j.co)}</span><span class="tag">${j.src}</span>${j.newOk ? `<span class="tag">신입 가능</span>` : ""}${isNew ? `<span class="tag new">NEW</span>` : ""}</div>
+      <div class="title"><a href="${esc(j.url)}" target="_blank" rel="noopener">${esc(j.title)}</a></div>
+      <div class="meta"><span>${esc(j.exp)}</span><span>${esc(j.type)}</span><span>${esc(j.loc)}</span><span>${esc(j.pay)}</span>${j.posted ? `<span>${fmt(j.posted)} 등록</span>` : ""}</div>
+      ${j.note ? `<p class="note">${esc(j.note)}</p>` : ""}
+    </li>`;
+  }).join("");
+}
+
+document.querySelectorAll("button.chip").forEach(b => b.addEventListener("click", () => {
+  state[b.dataset.k] = b.dataset.v;
+  try { localStorage.setItem("qa-board-filter", JSON.stringify(state)); } catch (e) {}
+  render();
+}));
+render();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A practical Markdown study guide with 16 topics, examples, Obsidian syntax, and a practice checklist.">
+<title>Markdown Guide — English Study Notes</title>
+<style>
+:root{color-scheme:light;--ink:#172b3a;--muted:#536674;--accent:#006c70;--line:#dce5e8;--paper:#fff;--bg:#f3f6f5}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--accent);text-underline-offset:3px}a:focus-visible,input:focus-visible{outline:3px solid #dc8a22;outline-offset:4px}.layout{display:grid;grid-template-columns:250px minmax(0,850px);gap:44px;max-width:1220px;margin:auto;padding:40px 28px}aside{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto}.brand{font-size:20px;font-weight:800;letter-spacing:-.6px}.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--accent)}nav ol{padding:0;list-style:none;counter-reset:toc}nav li{counter-increment:toc;margin:3px 0}nav a{display:block;padding:5px 7px;text-decoration:none;font-size:13px;border-radius:5px}nav a:before{content:counter(toc,decimal-leading-zero) "  ";font:11px ui-monospace,monospace;color:var(--muted);white-space:pre}nav a:hover{background:#e1eeeb}main{min-width:0}header{padding:38px;background:#123c43;color:#fff;border-radius:16px;margin-bottom:28px}header .eyebrow{color:#b0ddd0}h1{font-size:clamp(32px,5vw,52px);line-height:1.12;letter-spacing:-2px;margin:14px 0 20px}header p{color:#d9e9e8;margin:8px 0}header a{color:#b9ebdc}.meta{font-size:12px}section{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:28px 32px;margin:20px 0;scroll-margin-top:24px}h2{font-size:23px;line-height:1.35;letter-spacing:-.5px;margin:0 0 16px}h2 span{font-size:12px;font-weight:600;color:var(--accent);display:block;letter-spacing:1.5px;margin-bottom:6px}h3{font-size:17px;margin:26px 0 8px}p{margin:12px 0}code{font: .9em/1.65 ui-monospace,"Cascadia Code",Consolas,monospace;background:#edf3f2;padding:2px 5px;border-radius:4px}pre{background:#142c36;color:#e5f0ee;padding:20px;border-radius:8px;overflow-x:auto;font-size:14px;line-height:1.7}pre code{background:none;padding:0;color:inherit;border-radius:0;font-size:inherit;white-space:pre}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px;margin:16px 0}th,td{text-align:left;border-bottom:1px solid var(--line);padding:11px 12px;vertical-align:top}th{background:#edf3f2}td code{overflow-wrap:anywhere}.note{border-left:3px solid var(--accent);padding:10px 16px;background:#eff7f4;color:#345a57;font-size:14px}.checklist{list-style:none;padding:0}.checklist li{margin:10px 0}.checklist label{cursor:pointer}.checklist input{accent-color:var(--accent);width:17px;height:17px;margin-right:9px;vertical-align:middle}.checklist input:checked+span{text-decoration:line-through;color:var(--muted)}footer{color:var(--muted);font-size:13px;padding:12px 4px 36px}.skip{position:absolute;left:12px;top:-80px;background:white;padding:10px;z-index:2}.skip:focus{top:12px}
+@media(max-width:850px){.layout{display:block;padding:18px;max-width:780px}aside{position:static;max-height:none;margin-bottom:24px}nav ol{columns:2;column-gap:16px}nav li{break-inside:avoid}header{padding:28px}section{padding:24px}h1{letter-spacing:-1px}}
+@media(max-width:450px){nav ol{columns:1}section{padding:20px}pre{padding:14px;font-size:12px}th,td{padding:9px 7px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{background:white;font-size:11pt}.layout{display:block;padding:0;max-width:none}aside,.skip{display:none}header{background:white;color:#172b3a;padding:0;border-bottom:2px solid #172b3a;border-radius:0}header p,header a,header .eyebrow{color:#172b3a}section{border:0;border-radius:0;padding:12px 0;margin:12px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f2f4f4;color:#172b3a;break-inside:avoid}pre code{white-space:pre-wrap}h2,h3{break-after:avoid}.table-wrap{overflow:visible}table{break-inside:avoid}footer{padding-bottom:0}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="layout">
+<aside>
+<div class="eyebrow">Study notes / 2026</div>
+<div class="brand">Markdown Guide</div>
+<nav aria-label="Table of contents"><ol>
+<li><a href="#intro">What is Markdown?</a></li>
+<li><a href="#headings">Headings</a></li>
+<li><a href="#emphasis">Text emphasis</a></li>
+<li><a href="#paragraphs">Paragraphs &amp; line breaks</a></li>
+<li><a href="#lists">Lists</a></li>
+<li><a href="#links">Links</a></li>
+<li><a href="#images">Images</a></li>
+<li><a href="#quotes">Blockquotes</a></li>
+<li><a href="#rules">Horizontal rules</a></li>
+<li><a href="#code">Code</a></li>
+<li><a href="#tables">Tables</a></li>
+<li><a href="#tasks">Task lists</a></li>
+<li><a href="#escaping">Escaping characters</a></li>
+<li><a href="#extensions">Extended features</a></li>
+<li><a href="#obsidian">Platforms &amp; Obsidian</a></li>
+<li><a href="#reference">Quick reference</a></li>
+</ol></nav>
+<a href="#practice">Practice checklist →</a>
+</aside>
+<main id="main">
+<header>
+<div class="eyebrow">A practical reference • English edition</div>
+<h1>Small symbols.<br>Well-structured notes.</h1>
+<p>Learn Markdown through 16 concise topics, reusable examples, and a focused introduction to Obsidian syntax.</p>
+<p class="meta">Prepared October 2, 2026 · English adaptation of the Korean study summary</p>
+<p class="meta">Source: <a href="https://game-contents.vercel.app/mentoring/05.markdown_gaide.html">Complete Markdown Guide — Yuhan University, Game Contents Major</a></p>
+</header>
+<section id="intro"><h2><span>01 / FUNDAMENTALS</span>What is Markdown?</h2>
+<p>Markdown uses simple symbols to add structure and formatting to plain text. Files are commonly saved with the <code>.md</code> extension and used for notes, README files, and technical documentation.</p>
+<p>The source remains readable and portable, but support for extended syntax varies between applications. This guide summarizes the source’s 16 topics and adapts its examples for practice.</p></section>
+<section id="headings"><h2><span>02 / FUNDAMENTALS</span>Headings</h2>
+<p>Place a space after the <code>#</code> symbols. Use one to six symbols to create heading levels.</p>
+<pre><code># Study notes
+## Today's topic
+### Key concept
+#### Details
+##### References
+###### Additional notes</code></pre>
+<p>Underlined headings are another option: a line of <code>===</code> below text creates a level-one heading; <code>---</code> creates a level-two heading.</p></section>
+<section id="emphasis"><h2><span>03 / FUNDAMENTALS</span>Text emphasis</h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">Effect</th><th scope="col">Syntax</th></tr></thead><tbody>
+<tr><td><strong>Bold</strong></td><td><code>**key point**</code> or <code>__key point__</code></td></tr>
+<tr><td><em>Italic</em></td><td><code>*emphasis*</code> or <code>_emphasis_</code></td></tr>
+<tr><td><strong><em>Bold and italic</em></strong></td><td><code>***important***</code></td></tr>
+<tr><td><del>Strikethrough</del></td><td><code>~~old content~~</code></td></tr>
+<tr><td>Inline code</td><td><code>`score`</code></td></tr>
+</tbody></table></div><p>Wrap filenames and commands in inline code to display their punctuation literally.</p></section>
+<section id="paragraphs"><h2><span>04 / FUNDAMENTALS</span>Paragraphs and line breaks</h2>
+<ul><li><strong>New paragraph:</strong> leave a blank line between blocks of text.</li><li><strong>Line break within a paragraph:</strong> end a line with two spaces, then press Enter.</li><li>The display of an ordinary line break can depend on the editor’s settings.</li></ul>
+<pre><code>This is the first paragraph.
+
+This is the second paragraph.</code></pre></section>
+<section id="lists"><h2><span>05 / STRUCTURE</span>Lists</h2>
+<p>Start an unordered item with <code>-</code>, <code>*</code>, or <code>+</code>. For ordered lists, use a number followed by a period. Indent child items.</p>
+<pre><code>- Game production
+    - Planning
+    - Development
+
+1. Outline the idea
+2. Build a prototype
+3. Run a playtest</code></pre>
+<p>Repeating <code>1.</code> for each ordered item can still produce consecutive numbers when rendered.</p></section>
+<section id="links"><h2><span>06 / STRUCTURE</span>Links</h2>
+<pre><code>[Course materials](https://example.com)
+[Course materials](https://example.com "Open materials")
+
+&lt;https://example.com&gt;
+&lt;student@example.com&gt;
+
+[Lecture notes][class]
+
+[class]: https://example.com</code></pre>
+<p>Reference-style links keep the destination URL in a separate definition, making repeated links easier to maintain.</p></section>
+<section id="images"><h2><span>07 / STRUCTURE</span>Images</h2>
+<p>Add <code>!</code> before a link. Use alternative text to describe the information conveyed by the image.</p>
+<pre><code>![Gameplay screen](play.png)
+![Gameplay screen](play.png "Test scene")
+[![Resource banner](banner.png)](https://example.com)
+
+![Gameplay screen][shot]
+
+[shot]: play.png</code></pre>
+<p>In Obsidian, you can specify the image width:</p>
+<pre><code>![[play.png|300]]</code></pre>
+<p class="note">Replace the example filenames with actual files in your vault. The examples above show syntax; they do not include image assets.</p></section>
+<section id="quotes"><h2><span>08 / STRUCTURE</span>Blockquotes</h2>
+<p>Start a quote with <code>&gt;</code>. Add more symbols for nested quotes. Emphasis and inline code also work inside a quote.</p>
+<pre><code>&gt; Today's study note
+&gt;
+&gt; **Key point:** Start with a small example.
+&gt;&gt; Something to investigate further</code></pre></section>
+<section id="rules"><h2><span>09 / STRUCTURE</span>Horizontal rules</h2>
+<p>Put <code>---</code>, <code>***</code>, or <code>___</code> on its own line. Blank lines around the rule help avoid confusion with underlined headings.</p>
+<pre><code>First section
+
+---
+
+Second section</code></pre>
+<p>Do not append an explanatory sentence to the rule’s line: it may prevent the line from being recognized as a rule.</p></section>
+<section id="code"><h2><span>10 / ADVANCED BASICS</span>Code</h2>
+<p>Use a pair of backticks for inline code and three backticks on separate lines for a code block. If the content contains backticks, use a longer outer delimiter.</p>
+<pre><code>Store the points in `score`.
+
+```python
+score = 80
+print(score)
+```
+
+Show literal backticks: `` `score` ``</code></pre>
+<p>A language name after the opening fence, such as <code>python</code>, <code>javascript</code>, <code>csharp</code>, <code>html</code>, or <code>json</code>, enables language-specific highlighting where supported. Four-space indentation is another way to create a code block.</p></section>
+<section id="tables"><h2><span>11 / ADVANCED BASICS</span>Tables</h2>
+<p>Separate columns with <code>|</code> and place a separator row below the header. Colons in that row control alignment.</p>
+<pre><code>| Task | Owner | Progress |
+| :--- | :---: | ---: |
+| Planning | Alex | 100% |
+| Development | Sam | 60% |</code></pre>
+<ul><li><code>:---</code>: left aligned</li><li><code>:---:</code>: centered</li><li><code>---:</code>: right aligned</li></ul>
+<p>Cells can contain emphasis, links, and inline code. Keep multiline code blocks outside the table.</p></section>
+<section id="tasks"><h2><span>12 / ADVANCED BASICS</span>Task lists</h2>
+<p>Use <code>- [ ]</code> for an incomplete task and <code>- [x]</code> for a completed task. Keep the spaces inside and after the brackets where shown.</p>
+<pre><code>- [x] Read the study materials
+- [ ] Complete the practice
+    - [ ] Create a table
+    - [ ] Insert an image</code></pre></section>
+<section id="escaping"><h2><span>13 / ADVANCED BASICS</span>Escaping characters</h2>
+<p>Place a backslash <code>\</code> before a syntax character to display it literally.</p>
+<pre><code>\*Literal asterisks, not emphasis\*
+\# A sentence, not a heading
+\[Visible brackets\]
+1\. A sentence, not a numbered list</code></pre>
+<p>Inline code is also useful for filenames and code containing many special characters.</p></section>
+<section id="extensions"><h2><span>14 / EXTENSIONS</span>Extended features</h2>
+<p>The source introduces these features in its GitHub extensions section. Distinguish GFM syntax, such as tables and task lists, from additional features provided by individual services.</p>
+<h3>Footnotes</h3>
+<pre><code>A sentence that needs more explanation.[^memo]
+
+[^memo]: Add the supporting explanation here.</code></pre>
+<h3>Collapsible content</h3>
+<p>This example requires an environment that supports the relevant HTML. Markdown processing inside HTML can vary.</p>
+<pre><code>&lt;details&gt;
+&lt;summary&gt;Open additional explanation&lt;/summary&gt;
+
+Write the details here.
+
+&lt;/details&gt;</code></pre>
+<h3>Mathematical expressions</h3>
+<p>Use <code>$...$</code> for inline math and <code>$$...$$</code> for a separate math block in supporting applications.</p>
+<pre><code>Right-triangle relationship: $a^2 + b^2 = c^2$
+
+$$
+E = mc^2
+$$</code></pre></section>
+<section id="obsidian"><h2><span>15 / OBSIDIAN</span>Platform differences and Obsidian syntax</h2>
+<p>The source compares basic Markdown, GitHub, Obsidian, and Notion. The main lesson: the same text can behave differently depending on an app’s extensions and input methods. Feature support can also change with versions, so this summary focuses on practical Obsidian syntax rather than a universal compatibility table.</p>
+<pre><code>[[Study notes]]
+[[Study notes|Course summary]]
+[[Study notes#Key concept]]
+
+![[Study notes]]
+![[play.png|400]]
+
+#study
+==Review this later==</code></pre>
+<p>In order, these examples show a note link, a custom link label, a heading link, an embedded note, an image with a specified width, a tag, and highlighted text.</p></section>
+<section id="reference"><h2><span>16 / QUICK REFERENCE</span>Essential syntax and common mistakes</h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">Goal</th><th scope="col">Syntax</th></tr></thead><tbody>
+<tr><td>Create a heading</td><td><code>## Heading</code></td></tr>
+<tr><td>Emphasize text</td><td><code>**Text**</code></td></tr>
+<tr><td>Record a task</td><td><code>- [ ] Task</code></td></tr>
+<tr><td>Add a link</td><td><code>[Label](URL)</code></td></tr>
+<tr><td>Display an image</td><td><code>![Description](path)</code></td></tr>
+<tr><td>Quote text</td><td><code>&gt; Text</code></td></tr>
+<tr><td>Link an Obsidian note</td><td><code>[[Note name]]</code></td></tr>
+<tr><td>Highlight in Obsidian</td><td><code>==Text==</code></td></tr>
+</tbody></table></div>
+<h3>Before you finish</h3>
+<ul><li>Add a space after heading markers.</li><li>Leave blank lines around horizontal rules.</li><li>Distinguish new paragraphs from line breaks.</li><li>Use inline code when filenames or syntax symbols should appear literally.</li><li>Include a separator row below table headers.</li><li>Close every fenced code block.</li></ul></section>
+<section id="practice"><h2>Practice checklist</h2><p>Try each step in your own Markdown note. These checkboxes are for this page session; they are not saved.</p>
+<ul class="checklist">
+<li><label><input type="checkbox"><span>Structure a note with headings and subheadings.</span></label></li>
+<li><label><input type="checkbox"><span>Add emphasis, lists, and a blockquote.</span></label></li>
+<li><label><input type="checkbox"><span>Connect a link and an actual image file.</span></label></li>
+<li><label><input type="checkbox"><span>Create a table and a code block.</span></label></li>
+<li><label><input type="checkbox"><span>Link another note in Obsidian.</span></label></li>
+<li><label><input type="checkbox"><span>Check the result in reading view.</span></label></li>
+</ul></section>
+<footer>English study edition · October 2, 2026 · Based on the linked Korean guide.<br>This self-contained file includes its own styling and can be read offline. <a href="#main">Back to top ↑</a></footer>
+</main></div>
+</body>
+</html>
