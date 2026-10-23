@@ -1,4 +1,13 @@
 # MyProject
+
+## Contributors
+
+| 기여자 | 역할 |
+| --- | --- |
+| [lovely0503](https://github.com/lovely0503) | 프로젝트 관리 및 작업 방향 결정 |
+| Codex (OpenAI) | 문서 작성·정리 지원, VS Code·옵시디언 파일 연동, GitHub 자동 업로드 설정 |
+| Claude (Anthropic) | 학습 노트·웹페이지 작성 및 보관함 정리 지원 |
+
 https://pofo.kr/ 활용가능
 
 [파일검색_요구사항_설계.md](https://github.com/user-attachments/files/33373369/_._.md)
