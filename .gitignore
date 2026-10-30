@@ -1,0 +1,10 @@
+# Local private notes and account/session data
+/개인정보_비공개/
+/.github-sync/
+/.obsidian/
+/Telegram/
+**/tdata/
+.env
+.env.*
+*.pem
+*.key
